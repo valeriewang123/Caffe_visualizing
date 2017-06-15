@@ -81,7 +81,7 @@ varargout{1} = handles.output;
 
 
 function Map=visualize_feature_maps(net,blob_name,space)
-%space ??? ????????????????????????
+
 
 blob=net.blobs(blob_name).get_data();
 blob_width=max(size(blob,1),size(blob,2));
@@ -90,15 +90,15 @@ channels=size(blob,3);
     if(channels>64)
         channels = 64;
     end
-    ceil_num=ceil(sqrt(channels));%??????????????????????????????
+    ceil_num=ceil(sqrt(channels));
     Map=zeros(ceil_width*ceil_num,ceil_width*ceil_num);
     for u=1:ceil_num
         for v=1:ceil_num
             w=zeros(blob_width,blob_width);
             if (((u-1)*ceil_num+v)<=channels)
                 w=blob(:,:,(u-1)*ceil_num+v,1)';
-                w=w-min(min(w));%??????????????????
-                w=w/max(max(w))*255;%?????????
+                w=w-min(min(w));
+                w=w/max(max(w))*255;
             end
             Map(ceil_width*(u-1)+(1:blob_width),ceil_width*(v-1)+(1:blob_width))=w;
         end
@@ -117,7 +117,7 @@ Map=uint8(Map);
 
 
 function Map=visualize_part_feature_maps(net,blob_name,crop_num,space)
-%space ??? ????????????????????????
+
 
 blob=net.blobs(blob_name).get_data();
 %axe = length(net.blobs(blob_name).shape());
@@ -127,8 +127,8 @@ ceil_width=blob_width+space;
 %Map=zeros(ceil_width,ceil_width);
 %w=zeros(blob_width,blob_width);
 w=blob(:,:,crop_num,1)';
-w=w-min(min(w));%??????????????????
-w=w/max(max(w))*255;%?????????
+w=w-min(min(w));
+w=w/max(max(w))*255;
 %(ceil_width,ceil_width)
 Map=w;
  
@@ -170,7 +170,7 @@ if(axe==4)
     set(handles.axe2,'HandleVisibility','ON');
     axes(handles.axe2);
     imshow(Map);
-    colormap(jet);caxis([0 255]);%???????????????
+    colormap(jet);caxis([0 255]);
     colorbar;
     title(blob_name);
     set(handles.axe2, 'Visible', 'Off');
@@ -413,8 +413,8 @@ function pushbutton8_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton8 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-    %global size_flag;
-      %web -browser'http://ethereon.github.io/netscope/#/present/alexnet'
+   
+     
  
       
 
@@ -450,7 +450,7 @@ Map=visualize_part_feature_maps(net,blob_name,crop_num,1);
 set(handles.axes8,'HandleVisibility','ON');
 axes(handles.axes8);
 imshow(Map);
-colormap(jet);caxis([0 255]);%???????????????
+colormap(jet);caxis([0 255]);
 %title(blob_name);
 %axes('position',[0.25,0.08,0.7,0.6],'tag','axe2','box','on','NextPlot','new','XGrid','on','ZGrid','on');
 
